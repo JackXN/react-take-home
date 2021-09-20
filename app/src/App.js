@@ -1,24 +1,32 @@
-import React from 'react';
-import logo from './logo.svg';
+import React, {useState, useEffect} from 'react';
 import './App.css';
+import Header from './components/Header';
+
+
 
 function App() {
+
+const [appInfo, setAppInfo] = useState();
+
+  useEffect(() => {
+    fetch('https://www.plugco.in/public/take_home_sample_feed')
+    .then((res) => res.json())
+    .then(res => console.log(res))
+    .then((res) => res.campaigns.map((camp) => {
+      return {
+        name: camp.campaign_name
+      }
+    } ))
+  }, [])
+
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+        <h1>PLUGS</h1>
+          <hr/>
+      <div className='header_container'>
+        <Header/>
+      </div>
     </div>
   );
 }
